@@ -1,4 +1,3 @@
-
 /**
  * drag'n'drop plugin
  *

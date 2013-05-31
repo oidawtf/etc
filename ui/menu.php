@@ -1,5 +1,4 @@
 
-
 <div class="nav-bar">
     <div class="nav-bar-inner padding10">
         <span class="pull-menu"></span>

@@ -1,4 +1,3 @@
-
 <div>
     E.T.C. - Events. Theater. Cinema. by 
     <a class="fg-color-white" href="mailto:admin@oidawtf.com">Max Hotko</a>, 

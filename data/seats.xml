@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seats>
+    <seat id="0" row="1" name="A1" status="free" />
+    <seat id="1" row="1" name="A2" status="sold" />
+    <seat id="2" row="1" name="A3" status="reserved" />
+    <seat id="3" row="1" name="A4" status="booked" />
+    <seat id="4" row="1" name="A5" status="free" />
+    <seat id="5" row="2" name="B1" status="free" />
+    <seat id="6" row="2" name="B2" status="free" />
+    <seat id="7" row="2" name="B3" status="free" />
+    <seat id="8" row="2" name="B4" status="free" />
+    <seat id="9" row="2" name="B5" status="free" />
+    <seat id="10" row="3" name="C1" status="free" />
+    <seat id="11" row="3" name="C2" status="free" />
+    <seat id="12" row="3" name="C3" status="free" />
+    <seat id="13" row="3" name="C4" status="free" />
+    <seat id="14" row="3" name="C5" status="free" />
+    <seat id="15" row="4" name="D1" status="free" />
+    <seat id="16" row="4" name="D2" status="free" />
+    <seat id="17" row="4" name="D3" status="free" />
+    <seat id="18" row="4" name="D4" status="free" />
+    <seat id="19" row="4" name="D5" status="free" />
+</seats>

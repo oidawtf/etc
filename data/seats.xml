@@ -2,8 +2,8 @@
 <seats>
     <seat id="0" row="1" name="A1" status="free" />
     <seat id="1" row="1" name="A2" status="sold" />
-    <seat id="2" row="1" name="A3" status="reserved" />
-    <seat id="3" row="1" name="A4" status="booked" />
+    <seat id="2" row="1" name="A3" status="sold" />
+    <seat id="3" row="1" name="A4" status="sold" />
     <seat id="4" row="1" name="A5" status="free" />
     <seat id="5" row="2" name="B1" status="free" />
     <seat id="6" row="2" name="B2" status="free" />

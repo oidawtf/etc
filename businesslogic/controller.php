@@ -282,13 +282,27 @@ class controller {
     }
     
     public static function GetSeats() {
-        return controller::getXmlService ()->ReadSeats();
+        $seatsFromXML = controller::getXmlService ()->ReadSeats();
+        
+        $seatsFromDB = controller::getDataService()->selectSeats();
+        
+        $user = controller::getUser();
+        
+        foreach ($seatsFromXML as $seat) {
+            if (array_key_exists($seat->getId(), $seatsFromDB))
+                if ($seatsFromDB[$seat->getId()] == $user['id'])
+                    $seat->setStatus('reserved');
+                else
+                    $seat->setStatus('booked');
+        }
+        
+        return $seatsFromXML;
     }
     
     public static function updateSeat($id, $status) {
         $user = controller::getUser();
         
-        
+        controller::getDataService()->updateSeat($user['id'], $id, $status);
     }
 }
 

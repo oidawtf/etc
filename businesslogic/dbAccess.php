@@ -46,6 +46,10 @@ class dbAccess {
     public function __construct() {
     }
     
+    private function displayError($connection) {
+        echo mysql_errno($connection) . ": " . mysql_error($connection). "\n";
+    }
+    
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
@@ -250,6 +254,52 @@ class dbAccess {
         mysql_query("DELETE FROM event WHERE id = ".$id);
         
         mysql_close();
+    }
+    
+    public function updateSeat($userId, $seatId, $status) {
+        $this->openConnection();
+
+        if ($status == "free")
+            $sql = "
+                INSERT INTO booking (
+                    FK_user,
+                    seat_id
+                    )
+                VALUES (
+                    '".$userId."',
+                    '".$seatId."'
+                        )
+                ";
+        else
+            $sql = "
+                DELETE
+                FROM booking
+                WHERE FK_user = '".$userId."' AND seat_id = '".$seatId."'
+            ";
+        
+        mysql_query($sql);
+        
+        mysql_close();
+    }
+    
+    public function selectSeats() {
+        $this->openConnection();
+
+        $query = mysql_query("
+            SELECT
+                id,
+                FK_user AS userId,
+                seat_id AS seatId
+            FROM booking
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[$row['seatId']] = $row['userId'];
+        
+        $this->closeConnection($query);
+        
+        return $result;
     }
 }
 

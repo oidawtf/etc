@@ -9,9 +9,9 @@ class xmlAccess {
             
         $xml = simplexml_load_file(self::XMLPATH);    
         foreach ($xml as $seat) {
-            $result[] = new seat($seat['id'], $seat['row'], $seat['name'], $seat['status']);
+            $result[] = new seat((integer)$seat['id'], (integer)$seat['row'], (string)$seat['name'], (string)$seat['status']);
         }
-
+        
         return $result;
     }
     

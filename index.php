@@ -4,7 +4,7 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="Events, Theater, Cinema" name="description">
-        <meta content="Max Hotko, Ermin Cubikcic, Astrid Meissner, Lara Mae Quidet" name="author">
+        <meta content="Max Hotko, Ermin Cubikcic, Andreas Reithofer" name="author">
         <meta content="Events, Theater, Cinema" name="keywords">
         
         <link rel="stylesheet" href="css/modern.css">

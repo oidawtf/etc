@@ -63,13 +63,31 @@ if (isset($_GET['id']))
         xmlhttp.send(params);
     }
     
-    function changeState(id, status) {
-        alert(status);
-        if (status === "free")
-            document.getElementById(id).className = "tile selected";
-        else
-            document.getElementById(id).className = "tile";
+    function changeState(eventId, id, status) {
+        var xmlhttp = getXmlHttpRequest();
+        var url = "ui/changeState.php";
+        var params = "id=" + id + "&status=" + status;
+
+        xmlhttp.open("POST", url, true);
+
+        xmlhttp.onreadystatechange = function()
+        {
+            if (xmlhttp.readyState===4 && xmlhttp.status===200) {
+                document.getElementById("result").innerHTML=xmlhttp.responseText;
+                OnSeatsLoad(eventId);
+            }
+        };
+
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader("Content-length", params.length);
+        xmlhttp.setRequestHeader("Connection", "close");
+
+        xmlhttp.send(params);
     }
+    
+    setInterval(function(){
+        OnSeatsLoad(<?php echo $event->getId(); ?>);
+    },5000);
     
 </script>
 
@@ -131,6 +149,7 @@ if (isset($_GET['id']))
                         <input type='hidden' name='content' value='cart' />
                         <input type='hidden' name='id' value='<?php echo $event->getId(); ?>' />
                         
+                        <div id="result" style="clear:both"></div>
                         <div id="seatlist" style="clear:both"></div>
                         
                         <button type="submit">

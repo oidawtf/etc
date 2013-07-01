@@ -5,12 +5,16 @@ class controller {
     private static $menu;
     private static $menuAuthorized;
     private static $news;
+    private static $users;
     
     private static $dataService;
     private static $xmlService;
     
     const sessionIDName = 'etc_session';
-    const sessionIDUser = "username";
+    const sessionIDUser = 'username';
+    const sessionIDUserId = 'userId';
+    const sessionIDUser_firstname = 'userFirstname';
+    const sessionIDUser_lastname = 'userLastname';
     const sessionIDIsAdmin = "isAdmin";
     const sessionIDEvents = 'eventIds';
     const sessionIDCount = 'eventCount';
@@ -110,7 +114,15 @@ class controller {
         @session_start();
         $_SESSION[self::sessionIDName] = 1;
         $_SESSION[self::sessionIDUser] = $username;
-        $_SESSION[self::sessionIDIsAdmin] = controller::getDataService()->isAdmin($username);
+        
+        foreach (controller::getUsers() as $user)
+            if ($user['username'] == $username) {
+                $_SESSION[self::sessionIDUserId] = $user['id'];
+                $_SESSION[self::sessionIDUser_firstname] = $user['firstname'];
+                $_SESSION[self::sessionIDUser_lastname] = $user['lastname'];
+                $_SESSION[self::sessionIDIsAdmin] = $user['isAdmin'];
+                break;
+            }
     }
     
     public static function Logout() {
@@ -129,10 +141,33 @@ class controller {
         return self::sessionIDName;
     }
     
-    public static function getUsername() {
+    public static function getUsers() {
+        if (empty(controller::$users))
+            controller::$users = controller::getDataService()->selectUsers();
+        
+        return controller::$users;
+    }
+    
+    public static function getUser() {
         @session_start();
-        if (isset($_SESSION[self::sessionIDUser]))
-            return $_SESSION[self::sessionIDUser];
+        if (
+                isset($_SESSION[self::sessionIDUserId]) &&
+                isset($_SESSION[self::sessionIDUser]) &&
+                isset($_SESSION[self::sessionIDUser_firstname]) &&
+                isset($_SESSION[self::sessionIDUser_lastname]) &&
+                isset($_SESSION[self::sessionIDIsAdmin]))
+            return array(
+                "id" => $_SESSION[self::sessionIDUserId],
+                "username" => $_SESSION[self::sessionIDUser],
+                "firstname" => $_SESSION[self::sessionIDUser_firstname],
+                "lastname" => $_SESSION[self::sessionIDUser_lastname],
+                "isAdmin" => $_SESSION[self::sessionIDIsAdmin]
+                );
+    }
+    
+    public static function getUsername() {
+        $user = controller::getUser();
+        return $user['username'];
     }
     
     public static function isAdmin() {
@@ -248,6 +283,12 @@ class controller {
     
     public static function GetSeats() {
         return controller::getXmlService ()->ReadSeats();
+    }
+    
+    public static function updateSeat($id, $status) {
+        $user = controller::getUser();
+        
+        
     }
 }
 

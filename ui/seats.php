@@ -3,7 +3,7 @@
 require '../includes.php';
 
 function PrintSeatFree($seat, $event) {
-    echo "<li id=".$seat->getId()." class='tile bg-color-".$event->getType()."' onclick=\"changeState(".$seat->getId().", '".$seat->getStatus()."');\">";
+    echo "<li id=".$seat->getId()." class='tile bg-color-".$event->getType()."' onclick=\"changeState('".$event->getId()."', '".$seat->getId()."', '".$seat->getStatus()."');\">";
     echo    "<div title='Click to reserve this seat' class='tile-content padding10'>";
     echo        "<h2>".$seat->getName()."</h2>";
     echo        "€ ".$event->getPrice();
@@ -20,7 +20,7 @@ function PrintSeatSold($seat) {
 }
 
 function PrintSeatReserved($seat, $event) {
-    echo "<li id=".$seat->getId()." class='tile selected bg-color-".$event->getType()."' onclick=\"changeState(".$seat->getId().", '".$seat->getStatus()."');\">";
+    echo "<li id=".$seat->getId()." class='tile selected bg-color-".$event->getType()."' onclick=\"changeState('".$event->getId()."', '".$seat->getId()."', '".$seat->getStatus()."');\">";
     echo    "<div title='Reserved for you' class='tile-content padding10'>";
     echo        "<h2>".$seat->getName()."</h2>";
     echo        "€ ".$event->getPrice();

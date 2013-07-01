@@ -67,6 +67,35 @@ class dbAccess {
         mysql_close();  
     }
     
+    public function selectUsers()
+    {
+        $this->openConnection();
+
+        $query = mysql_query("
+            SELECT
+                U.id,
+                U.firstname,
+                U.lastname,
+                U.email,
+                U.is_admin as isAdmin
+            FROM user AS U
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array(
+                'id' => $row['id'],
+                'firstname' => $row['firstname'],
+                'lastname' => $row['lastname'],
+                'username' => $row['email'],
+                'isAdmin' => $row['isAdmin'],
+            );
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
     public function getEvents($search)
     {
         $this->openConnection();

@@ -2,12 +2,15 @@
 
 class xmlAccess {
 
-    const XMLPATH = "../data/seats.xml";
+    const XMLPATH = "data/seats.xml";
     
-    public function ReadSeats() {
+    public function ReadSeats($path = NULL) {
+        if ($path == NULL)
+            $path = self::XMLPATH;
+        
         $result = array();
             
-        $xml = simplexml_load_file(self::XMLPATH);    
+        $xml = simplexml_load_file($path);
         foreach ($xml as $seat) {
             $result[] = new seat((integer)$seat['id'], (integer)$seat['row'], (string)$seat['name'], (string)$seat['status']);
         }

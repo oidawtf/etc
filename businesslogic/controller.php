@@ -11,13 +11,14 @@ class controller {
     private static $xmlService;
     
     const sessionIDName = 'etc_session';
+    
     const sessionIDUser = 'username';
     const sessionIDUserId = 'userId';
     const sessionIDUser_firstname = 'userFirstname';
     const sessionIDUser_lastname = 'userLastname';
     const sessionIDIsAdmin = "isAdmin";
-    const sessionIDEvents = 'eventIds';
-    const sessionIDCount = 'eventCount';
+    
+    const sessionIDSeats = 'seats';
     
     public static function getMenu() {
          if (empty(controller::$menu)) {
@@ -281,8 +282,8 @@ class controller {
         controller::getDataService()->DeleteEvent($id);
     }
     
-    public static function GetSeats() {
-        $seatsFromXML = controller::getXmlService ()->ReadSeats();
+    public static function GetSeats($path) {
+        $seatsFromXML = controller::getXmlService ()->ReadSeats($path);
         
         $seatsFromDB = controller::getDataService()->selectSeats();
         

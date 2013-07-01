@@ -29,6 +29,31 @@
         <script src="js/modern/calendar.js" type="text/javascript"></script>
         <script src="js/ajax.js" type="text/javascript"></script>
         
+        <script type="text/javascript">
+        
+        function changeState(eventId, id, status) {
+            var xmlhttp = getXmlHttpRequest();
+            var url = "ui/changeState.php";
+            var params = "id=" + id + "&status=" + status;
+
+            xmlhttp.open("POST", url, true);
+
+            xmlhttp.onreadystatechange = function()
+            {
+                if (xmlhttp.readyState===4 && xmlhttp.status===200) {
+                    OnSeatsLoad(eventId);
+                }
+            };
+
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.setRequestHeader("Content-length", params.length);
+            xmlhttp.setRequestHeader("Connection", "close");
+
+            xmlhttp.send(params);
+        }
+    
+        </script>
+        
         <title>ETC - Events. Theater. Cinema.</title>
 
     </head>

@@ -2,13 +2,12 @@
 
 @controller::checkAuthentication();
 
-?>
+if (!isset($_GET['id']))
+    return;
 
-<script>
-    function select(obj, id) {
-        document.getElementById(id).className = "tile padding4";
-    }
-</script>
+$eventId = $_GET['id'];
+
+?>
 
 <div class="page-header">
     <div class="page-header-content">
@@ -26,38 +25,31 @@
                 
                 <?php
                 
-                if (isset($_SESSION[controller::sessionIDEvents])) {
-                    foreach ($_SESSION[controller::sessionIDEvents] as $key => $value) {
-                        $sum = 0;
-                        $event = controller::getEvent($key);
-                        echo "<div class='span15'>";
-                        echo    "<h2>".$event->getName()."</h2>";
-                        echo        "<div class='clearfix'>";
-                        for ($i = 0; $i < $value; $i++) {
-                            $sum += $event->getPrice();
-                            $id = "'event_".$event->getId()."_".$i."'";
-                            echo            "<u1>";
-                            echo                "<li id=".$id." class='tile selected bg-color-".$event->getType()."' onclick=\"select(this, ".$id.");\">";
-                            echo                    "<div class='tile-content padding10'>";
-                            echo                        "€ ".$event->getPrice();
-                            echo                        "<h2>A3</h2>";
-                            echo                    "</div>";
-                            echo                "</li>";
-                            echo            "</u1>";
-                        }
-                        echo        "</div>";
-                        echo "</div>";
+                $seats = controller::GetSeats();
+                $event = controller::getEvent($eventId);                
+                $sum = 0;
+                
+                echo "<div class='span15'>";
+                echo    "<h2>".$event->getName()."</h2>";
+                echo    "<div class='clearfix'>";
+                echo        "<ul>";
+                
+                foreach ($seats as $seat) {
+                    if ($seat->getStatus() == "reserved") {
+                        PrintSeatReserved($seat, $event);
+                        $sum += $event->getPrice();
                     }
-                    
-                    echo "<div class='span15'>";
-                    echo    "</br>";
-                    echo    "<h2>Sum: € ".$sum."</h2>";
-                    echo    "</br>";
-                    echo    "<button class='big'>Order now!</button>";
-                    echo "</div>";
                 }
-                else
-                    echo "No cart items";
+                echo        "</ul>";
+                echo    "</div>";
+                echo "</div>";
+                
+                echo "<div class='span15'>";
+                echo    "</br>";
+                echo    "<h2>Sum: € ".$sum."</h2>";
+                echo    "</br>";
+                echo    "<button class='big'>Order now!</button>";
+                echo "</div>";
                 
                 ?>
                 

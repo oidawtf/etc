@@ -14,35 +14,6 @@ class dbAccess {
 //    const user = "oidawtfcom";
 //    const password = "JDx0Z@M";
   
-    private $queries = array(
-        "select" => array(
-            "event" => "select * from event",
-            "booking" => "select * from booking"
-        )
-    );
-    
-    private $columns = array(
-        "user" => array(
-            "id" => "id",
-            "firstname" => "firstname",
-            "lastname" => "lastname",
-            "password" => "password",
-            "email" => "email",
-            "isAdmin" => "is_admin"
-        ),
-        "event" => array(
-            "id" => "id",
-            "name" => "name",
-            "date" => "date",
-            "image" => "image",
-            "description" => "description",
-            "link" => "link",
-            "type" => "type",
-            "isMajor" => "is_major",
-            "price" => "price"
-        ),
-    );
-    
     public function __construct() {
     }
     
@@ -107,7 +78,7 @@ class dbAccess {
         $search = $this->format($search);
         
         if ($search == "")
-            $query = mysql_query($this->queries["select"]["event"]);
+            $query = mysql_query("select * from event");
         else
             $query = mysql_query("select * from event where name like '%".$search."%'");
         
@@ -115,15 +86,15 @@ class dbAccess {
         while ($row = mysql_fetch_assoc($query))
         {
             $result[] = new event(
-                    $row[$this->columns['event']['id']],
-                    $row[$this->columns['event']['name']],
-                    $row[$this->columns['event']['date']],
-                    $row[$this->columns['event']['image']],
-                    $row[$this->columns['event']['description']],
-                    $row[$this->columns['event']['link']],
-                    $row[$this->columns['event']['type']],
-                    $row[$this->columns['event']['isMajor']],
-                    $row[$this->columns['event']['price']]
+                    $row['id'],
+                    $row['name'],
+                    $row['date'],
+                    $row['image'],
+                    $row['description'],
+                    $row['link'],
+                    $row['type'],
+                    $row['is_major'],
+                    $row['price']
                     );
         }
         
@@ -132,7 +103,6 @@ class dbAccess {
         return $result;
     }
 
-    // Protect at little bit from sql injection
     private function format($input)
     {
         $input = stripslashes($input);
@@ -146,14 +116,13 @@ class dbAccess {
         $email = $this->format($email);
         $password = $this->format($password);
         
-        // Hier query auslagern in $this->queries["select"]
         $query = mysql_query("SELECT * FROM user WHERE email='$email' and password='$password'");
 
         $result = mysql_num_rows($query);
         if ($result)
         {
             $row = mysql_fetch_assoc($query);
-            $this->isAdmin = $row[$this->columns['user']['isAdmin']];
+            $this->isAdmin = $row['is_admin'];
         }
         
         $this->closeConnection($query);
@@ -203,7 +172,6 @@ class dbAccess {
         $email = $this->format($email);
         $password = $this->format($password);
         
-        // Hier query auslagern in $this->queries["insert"]
         mysql_query("INSERT INTO user (firstname, lastname, password, email) VALUES ('".$firstname."','".$lastname."','".$password."','".$email."')");
         
         mysql_close();
@@ -221,7 +189,6 @@ class dbAccess {
         $ismajor = $this->format($ismajor);
         $price = $this->format($price);
         
-        // Hier query auslagern in $this->queries["insert"]
         mysql_query("INSERT INTO event (name, date, image, description, link, type, is_major, price) VALUES ('".$title."','".$date."','".$image."','".$description."','".$link."','".$type."','".$ismajor."','".$price."')");
         
         mysql_close();
@@ -240,8 +207,19 @@ class dbAccess {
         $ismajor = $this->format($ismajor);
         $price = $this->format($price);
         
-        // Hier query auslagern in $this->queries["insert"]
-        //mysql_query("INSERT INTO event (name, date, image, description, link, type, is_major, price) VALUES ('".$title."','".$date."','".$image."','".$description."','".$link."','".$type."','".$ismajor."','".$price."')");
+        mysql_query("
+            UPDATE event
+                SET
+                    name = '".$title."',
+                    date = '".$date."',
+                    image = '".$image."',
+                    description = '".$description."',
+                    link = '".$link."',
+                    type = '".$type."',
+                    is_major = '".$ismajor."',
+                    price = '".$price."'
+                WHERE id = '".$id."'
+            ");
         
         mysql_close();
     }

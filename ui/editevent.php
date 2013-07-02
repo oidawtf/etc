@@ -2,8 +2,14 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id']))
+if (isset($_GET['id'])) {
     $event = controller::getEvent($_GET['id']);
+    $command = array('id' => 'editevent', 'name' => 'Edit Event');
+}
+else {
+    $event = new event();
+    $command = array('id' => 'createevent', 'name' => 'Create Event');
+}
 
 ?>
 
@@ -80,7 +86,7 @@ if (isset($_GET['id']))
                             <button class="btn-clear" onclick="return false;" tabindex="-1" type="button"></button>
                         </div>
                     </div>
-                    <button type="submit" name="editevent">Edit event</button>
+                    <button type="submit" name="<?php echo $command['id']; ?>"><?php echo $command['name'] ?></button>
                 </form>
             </div>
         </div>

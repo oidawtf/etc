@@ -99,7 +99,7 @@
         
         controller::Login($_POST['email']);
         
-        }
+    }
         
     // Create new event clicked
     if (
@@ -153,11 +153,9 @@
                                 case 'about.php':
                                     @include 'ui/'.$_GET['content'];
                                     break;
+                                case 'createevent':
                                 case 'editevent':
                                     @include 'ui/editevent.php';
-                                    break;
-                                case 'createevent':
-                                    @include 'ui/createevent.php';
                                     break;
                                 case 'cart':
                                     if (isset($_GET['id']) && isset($_GET['count']) && $_GET['count'] > 0)  {

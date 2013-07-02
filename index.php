@@ -27,34 +27,34 @@
         <script src="js/modern/tile-slider.js" type="text/javascript"></script>
         <script src="js/modern/tile-drag.js" type="text/javascript"></script>
         <script src="js/modern/calendar.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/modern/dialog.js"></script>
         <script src="js/ajax.js" type="text/javascript"></script>
         
-        <script type="text/javascript">
-        
-        function changeState(eventId, id, status) {
-            var xmlhttp = getXmlHttpRequest();
-            var url = "ui/changeState.php";
-            var params = "id=" + id + "&status=" + status;
-
-            xmlhttp.open("POST", url, true);
-
-            xmlhttp.onreadystatechange = function()
-            {
-                if (xmlhttp.readyState===4 && xmlhttp.status===200) {
-                    OnSeatsLoad(eventId);
-                }
-            };
-
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.setRequestHeader("Content-length", params.length);
-            xmlhttp.setRequestHeader("Connection", "close");
-
-            xmlhttp.send(params);
-        }
-    
-        </script>
-        
         <title>ETC - Events. Theater. Cinema.</title>
+        
+        <script type="text/javascript">
+
+        function showSuccess() {
+            $.Dialog({
+                'title' : 'Order successful!',
+                'content' : 'Your order was successful.',
+                'draggable' : true,
+                'overlay' : true,
+                'closeButton' : false,
+                'buttonsAlign': 'right',
+                'keepOpened' : false,
+                'position' : {
+                    'zone' : 'center'
+                },
+                'buttons' : {
+                    'Ok' : {
+                        'action': function(){}
+                    }
+                }
+            });
+        }
+
+        </script>
 
     </head>
     
@@ -124,6 +124,11 @@
         }
         // Include other deletes here as well
     }
+    
+    // Order Tickets clicked
+    if (isset($_POST['order']))
+        controller::OrderTickets();
+    
     ?>
 
     <body class="metrouicss">
@@ -197,6 +202,13 @@
                     </span>
                 </div>
             </div>
-        </div>     
+        </div>
+        
+        <?php
+        
+        if (isset($_POST['order']))
+            echo "<script type='text/javascript'> showSuccess(); </script>";
+        ?>
+        
     </body>
 </html>

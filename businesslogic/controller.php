@@ -305,6 +305,10 @@ class controller {
         
         controller::getDataService()->updateSeat($user['id'], $id, $status);
     }
+    
+    public static function OrderTickets() {
+        
+    }
 }
 
 ?>

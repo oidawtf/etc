@@ -7,7 +7,7 @@ if (isset($_GET['id']))
 
 ?>
 
-<script>
+<script type="text/javascript">
     
     function getXmlHttpRequest()
     {
@@ -42,6 +42,27 @@ if (isset($_GET['id']))
         xmlhttp.send(params);
     }
     
+    function changeState(eventId, id, status) {
+        var xmlhttp = getXmlHttpRequest();
+        var url = "ui/changeState.php";
+        var params = "id=" + id + "&status=" + status;
+
+        xmlhttp.open("POST", url, true);
+
+        xmlhttp.onreadystatechange = function()
+        {
+            if (xmlhttp.readyState===4 && xmlhttp.status===200) {
+                OnSeatsLoad(eventId);
+            }
+        };
+
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader("Content-length", params.length);
+        xmlhttp.setRequestHeader("Connection", "close");
+
+        xmlhttp.send(params);
+    }
+
     setInterval(function(){
         OnSeatsLoad(<?php echo $event->getId(); ?>);
     },5000);

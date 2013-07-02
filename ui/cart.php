@@ -2,10 +2,14 @@
 
 @controller::checkAuthentication();
 
-if (!isset($_GET['id']))
-    return;
+if (isset($_GET['id']))
+    $eventId = $_GET['id'];
+else
+    $eventId = 2;
 
-$eventId = $_GET['id'];
+// Wenn nicht direkt von den Eventdetails kam, sondern vom Shopping Cart, dann den Opernball nehmen
+// Ist zwar nicht schoen, aber die Aufteilung auf xml und db auch nicht...
+// Abgesehen gibt's keine Unterscheidung bei den Sitzplaetzen, weil es auch nicht gefordert war
 
 ?>
 
@@ -44,12 +48,15 @@ $eventId = $_GET['id'];
                 echo    "</div>";
                 echo "</div>";
                 
-                echo "<div class='span15'>";
-                echo    "</br>";
-                echo    "<h2>Sum: € ".$sum."</h2>";
-                echo    "</br>";
-                echo    "<button class='big'>Order now!</button>";
-                echo "</div>";
+                echo "<form method='POST' action=".$_SERVER["PHP_SELF"].">";
+                echo    "<div class='span15'>";
+                echo        "</br>";
+                echo        "<h2>Sum: € ".$sum."</h2>";
+                echo        "</br>";
+                echo        "<input type='hidden' name='order' value='tickets' />";
+                echo        "<input type='submit' class='big' value='Order now!' />";
+                echo    "</div>";
+                echo "</form>";
                 
                 ?>
                 

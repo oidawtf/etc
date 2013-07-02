@@ -279,6 +279,14 @@ class dbAccess {
         
         return $result;
     }
+    
+    public function deleteSeats($id) {
+        $this->openConnection();
+        
+        mysql_query("DELETE FROM booking WHERE FK_user = ".$id);
+        
+        mysql_close();
+    }
 }
 
 ?>

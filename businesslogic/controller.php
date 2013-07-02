@@ -282,7 +282,7 @@ class controller {
         controller::getDataService()->DeleteEvent($id);
     }
     
-    public static function GetSeats($path) {
+    public static function GetSeats($path = NULL) {
         $seatsFromXML = controller::getXmlService ()->ReadSeats($path);
         
         $seatsFromDB = controller::getDataService()->selectSeats();
@@ -307,7 +307,11 @@ class controller {
     }
     
     public static function OrderTickets() {
+        $seats = controller::GetSeats();
+        controller::getXmlService()->WriteSeats($seats);
         
+        $user = controller::getUser();
+        controller::getDataService()->deleteSeats($user['id']);
     }
 }
 

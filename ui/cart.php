@@ -5,9 +5,9 @@
 if (isset($_GET['id']))
     $eventId = $_GET['id'];
 else
-    $eventId = 2;
+    $eventId = 1;
 
-// Wenn nicht direkt von den Eventdetails kam, sondern vom Shopping Cart, dann den Opernball nehmen
+// Wenn nicht direkt von den Eventdetails kam, sondern vom Shopping Cart, dann irgendein event nehmen... 1 zB
 // Ist zwar nicht schoen, aber die Aufteilung auf xml und db auch nicht...
 // Abgesehen gibt's keine Unterscheidung bei den Sitzplaetzen, weil es auch nicht gefordert war
 

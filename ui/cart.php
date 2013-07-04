@@ -28,8 +28,9 @@ else
             <div class="grid">
                 
                 <?php
-                
+
                 $seats = controller::GetSeats();
+                
                 $event = controller::getEvent($eventId);                
                 $sum = 0;
                 
@@ -40,7 +41,7 @@ else
                 
                 foreach ($seats as $seat) {
                     if ($seat->getStatus() == "reserved") {
-                        PrintSeatReserved($seat, $event);
+                        utils::PrintSeatReserved($seat, $event);
                         $sum += $event->getPrice();
                     }
                 }

@@ -16,15 +16,15 @@ echo    "<div class='clearfix'>";
 echo        "<ul>";
 foreach (controller::GetSeats('../data/seats.xml') as $seat) {
     if ($seat->getStatus() == "reserved") {
-        PrintSeatReserved($seat, $event);
+        utils::PrintSeatReserved($seat, $event);
         $sum += $event->getPrice();
     }
     else if ($seat->getStatus() == "booked")
-        PrintSeatBooked($seat, $event);
+        utils::PrintSeatBooked($seat, $event);
     else if ($seat->getStatus() == "sold")
-        PrintSeatSold($seat);
+        utils::PrintSeatSold($seat);
     else
-        PrintSeatFree($seat, $event);
+        utils::PrintSeatFree($seat, $event);
 }
 echo        "</ul>";
 echo    "</div>";

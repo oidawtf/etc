@@ -108,7 +108,7 @@ class dbAccess {
         // Commented out - SQLi is possible
 //        $input = stripslashes($input);
 //        $input = mysql_real_escape_string($input);
-//        return $input;
+        return $input;
     }
     
     public function checkCredentials($email, $password) {

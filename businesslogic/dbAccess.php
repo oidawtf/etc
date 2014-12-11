@@ -105,9 +105,10 @@ class dbAccess {
 
     private function format($input)
     {
-        $input = stripslashes($input);
-        $input = mysql_real_escape_string($input);
-        return $input;
+        // Commented out - SQLi is possible
+//        $input = stripslashes($input);
+//        $input = mysql_real_escape_string($input);
+//        return $input;
     }
     
     public function checkCredentials($email, $password) {

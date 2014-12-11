@@ -15,12 +15,12 @@
                     <div class="span5">
                         <h2>Email</h2>
                         <div class="input-control text">
-                            <input name="email" type="text" value="maxhotko@hotmail.com" placeholder="Enter email">
+                            <input name="email" type="text" value="" placeholder="Enter email">
                             <button class="btn-clear" onclick="return false;" tabindex="-1" type="button"></button>
                         </div>
                         <h2>Password</h2>
                         <div class="input-control password">
-                            <input name="password" type="password" value="123456" placeholder="Enter password" style="display: inline;">
+                            <input name="password" type="password" value="" placeholder="Enter password" style="display: inline;">
                             <button class="btn-reveal" tabindex="-1" type="button"></button>
                         </div>
                         <button type="submit" name="login">Login</button>

@@ -97,10 +97,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `password`, `email`, `is_admin`) VALUES
-(1, 'Max', 'Hotko', '123456', 'maxhotko@hotmail.com', 1),
-(2, 'Birgit', 'Pohn', '123456', 'pohn@technikum-wien.at', NULL),
-(3, 'Ermin', 'Cibukcic', '123456', 'wi12b004@technikum-wien.at', 1),
-(4, 'Andreas', 'Reithofer', '123456', 'wi12b002@technikum-wien.at', 0);
+(1, 'Hugo', 'Stieglitz', '123456', 'hugo@mailinator.com', 1),
+(2, 'Birgit', 'P.', '123456', 'birgit@mailinator.com', NULL),
+(3, 'Harry', 'Hirsch', '123456', 'hirsch@mailinator.com', 1),
+(4, 'Andreas', 'R.', '123456', 'andi@mailinator.com', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
